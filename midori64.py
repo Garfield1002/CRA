@@ -41,7 +41,7 @@ def mixColumns(xs):
         for j in range(4):
             # multiplication
             for k in range(4):
-                output[4*j+i] ^= M[4*j+k] * xs[4*k+i]
+                output[j+4*i] ^= M[j+4*k] * xs[k+4*i]
     return output
 
 

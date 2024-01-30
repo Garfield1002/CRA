@@ -89,7 +89,7 @@ void mixColumns(block_t block) {
             // mul
             for (size_t k = 0; k < 4; k++)
             {
-                output[4 * j + i] ^= block[4 * k + i] * M[4 * j + k];
+                output[j + 4 * i] ^= block[k + 4 * i] * M[j + 4 * k];
             }
         }
     }
