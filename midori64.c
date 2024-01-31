@@ -110,6 +110,21 @@ void encrypt(block_t msg, size_t round_count, uint8_t* roundKeys) {
     }
 }
 
+void encrypt_differential(block_t msg, uint8_t* roundKeys) {
+    addRoundKey(msg, &roundKeys[0]);
+
+    for (size_t i = 0; i < 3; i++)
+    {
+        subCell(msg);
+        shuffleCell(msg);
+        mixColumns(msg);
+        addRoundKey(msg, &roundKeys[(i + 1) * BLOCK_SIZE]);
+    }
+
+    subCell(msg);
+    addRoundKey(msg, &roundKeys[4 * BLOCK_SIZE]);
+}
+
 void decrypt(block_t ct, size_t round_count, uint8_t* roundKeys) {
     for (size_t i = 0; i < round_count; i++)
     {

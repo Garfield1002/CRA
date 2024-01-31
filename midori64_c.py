@@ -13,6 +13,15 @@ shuffleCell_c = midori64.shuffleCell
 invShuffleCell_c = midori64.invShuffleCell
 mixColumns_c = midori64.mixColumns
 
+def encrypt_differential(msg, keys: list[list[int]]):
+    m = block_t(*msg)
+
+    arr = c_uint8 * (len(keys) * 16)
+    ks = arr(*[x for key in keys for x in key])
+    midori64.encrypt_differential(m, ks)
+
+    return [x for x in m]
+
 def encrypt(msg, r, keys: list[list[int]]):
     m = block_t(*msg)
 
